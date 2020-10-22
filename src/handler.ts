@@ -1,5 +1,6 @@
 
-import Highlight from "highlight.js"
+import Prism from "prismjs"
+import "prismjs/components/"
 import { v4 as uuidv4 } from "uuid"
 import mainTemplate from "./templates/main.handlebars"
 import pasteTemplate from "./templates/paste.handlebars"
@@ -93,46 +94,10 @@ async function handleRetrievePaste(request: Request, url: URL): Promise<Response
   }
 
   let formattedPaste
-  if (typeof language === "undefined") {
-    // Due to limited CPU resources on Workers, we can only support a limited set of languages.
-    // I don't claim to know all the languages you might want but these are common.
-    const formatAttempt = Highlight.highlightAuto(paste, [
-      'plaintext',
-      'c-like',
-      'cpp',
-      'c',
-      'xml',
-      'json',
-      'css',
-      'python-repl',
-      'diff',
-      'php-template',
-      'go',
-      'javascript',
-      'makefile',
-      'markdown',
-      'typescript',
-      'perl',
-      'yaml',
-      'lua',
-      'rust',
-      'bash',
-      'php',
-      'less',
-      'kotlin',
-      'java',
-      'python',
-      'csharp',
-      'sql',
-      'ini'
-    ])
-
-    formattedPaste = formatAttempt.value
-    language = formatAttempt.language
-  } else if (language === "raw") {
+  if (typeof language === "undefined" || language === "raw") {
     return new Response(paste, { headers: { 'Content-Type': 'text/plain'} });
   } else {
-    formattedPaste = Highlight.highlight(language, paste, true).value
+    formattedPaste = Prism.highlight(paste, Prism.languages[language] || 'plaintext', language)
   }
 
   const rendered = pasteTemplate(

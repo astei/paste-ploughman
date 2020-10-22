@@ -17,10 +17,19 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: 'ts-loader',
-        options: {
-          transpileOnly: true,
+        use: [
+        {
+          loader: 'ts-loader',
+          options: {
+            transpileOnly: true,
+          },
         },
+        {
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true
+          }
+        }]
       },
       {
         test: /\.handlebars$/,
