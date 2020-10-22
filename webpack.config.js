@@ -18,23 +18,24 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: [
-        {
-          loader: 'ts-loader',
-          options: {
-            transpileOnly: true,
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+            },
           },
-        },
-        {
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: true
-          }
-        }]
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
       },
       {
         test: /\.handlebars$/,
-        loader: 'handlebars-loader'
-      }
+        loader: 'handlebars-loader',
+      },
     ],
   },
 }
