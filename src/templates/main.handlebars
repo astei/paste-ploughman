@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.1/styles/default.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{siteName}}</title>
+</head>
+<body>
+    <h1>{{siteName}}</h1>
+    <p>Quick n' dirty pastebin built on Cloudflare Workers.</p>
+
+    <h2>Ground rules</h2>
+    <ul>
+        <li>This service is subject to variable availability.</li>
+        <li>All pastes expire after 3 days, no exceptions.</li>
+    </ul>
+
+    <h2>Create a paste</h2>
+    <form action="/post" method="POST">
+        <textarea name="text"></textarea>
+        <button type="submit" name="submit">Post</button>
+    </form>
+</body>
+</html>
